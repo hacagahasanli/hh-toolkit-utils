@@ -12,12 +12,12 @@ export default defineConfig({
   dts: {
     entry: 'src/index.ts',
     resolve: true,
-    // compilerOptions: {
-    //   moduleResolution: 'node10',
-    //   skipLibCheck: true,
-    //   allowSyntheticDefaultImports: true,
-    //   esModuleInterop: true,
-    // },
+    compilerOptions: {
+      moduleResolution: 'node10',
+      skipLibCheck: true,
+      allowSyntheticDefaultImports: true,
+      esModuleInterop: true,
+    },
   },
   clean: true,
   sourcemap: true,
