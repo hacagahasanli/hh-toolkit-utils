@@ -1,6 +1,6 @@
 {
   "name": "everyday-helper",
-  "version": "1.0.5",
+  "version": "1.0.9",
   "description": "A lightweight collection of React hooks, utility functions, and helpers for modern React development",
   "license": "MIT",
   "type": "module",
@@ -31,8 +31,9 @@
     "toolkit",
     "utilities"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "LICENSE",
@@ -40,8 +41,12 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": {
+        "import": "./dist/index.d.ts",
+        "require": "./dist/index.d.cts"
+      },
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },

@@ -10,7 +10,6 @@ export default defineConfig({
   ],
   format: ['esm', 'cjs'],
   dts: {
-    only: true,
     resolve: true,
     compilerOptions: {
       moduleResolution: 'node10',
