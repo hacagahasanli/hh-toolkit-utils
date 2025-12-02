@@ -25,13 +25,6 @@
     "LICENSE",
     "README.md"
   ],
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/*"
-      ]
-    }
-  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
