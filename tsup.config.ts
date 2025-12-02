@@ -10,13 +10,14 @@ export default defineConfig({
   ],
   format: ['esm', 'cjs'],
   dts: {
+    entry: 'src/index.ts',
     resolve: true,
-    compilerOptions: {
-      moduleResolution: 'node10',
-      skipLibCheck: true,
-      allowSyntheticDefaultImports: true,
-      esModuleInterop: true,
-    },
+    // compilerOptions: {
+    //   moduleResolution: 'node10',
+    //   skipLibCheck: true,
+    //   allowSyntheticDefaultImports: true,
+    //   esModuleInterop: true,
+    // },
   },
   clean: true,
   sourcemap: true,
@@ -27,4 +28,11 @@ export default defineConfig({
   external: ['react', 'react-dom', 'react-router-dom', 'dayjs'],
   onSuccess: 'copyfiles -u 1 "src/styles/**/*.css" dist',
   ignoreWatch: ['**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', 'src/__tests__'],
+  target: 'es2020',
+  platform: 'browser',
+  esbuildOptions(options) {
+    options.banner = {
+      js: '"use client"',
+    };
+  },
 });
