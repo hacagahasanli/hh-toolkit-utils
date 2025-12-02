@@ -27,7 +27,7 @@ const DEFAULT_CONFIG: Required<PrintConfig> = {
   cleanupDelay: 10000,
 };
 
-const usePrint = () => {
+export const usePrint = () => {
   const createPrintHTML = (src: string, style: PrintStyle = {}): string => {
     const { padding, fit, maxWidth, maxHeight, background } = { ...DEFAULT_STYLE, ...style };
 
@@ -125,5 +125,3 @@ const usePrint = () => {
 
   return { printInBlank, printInCurrent };
 };
-
-export default usePrint;

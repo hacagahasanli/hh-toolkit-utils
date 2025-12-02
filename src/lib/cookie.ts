@@ -12,7 +12,7 @@ interface CookieOptions {
 /**
  * Utility object for setting, getting, and removing cookies.
  */
-const CookieManager = {
+export const CookieManager = {
   /**
    * Sets a cookie with optional settings.
    * @param name - Cookie name
@@ -124,5 +124,3 @@ const CookieManager = {
     document.cookie = cookieString;
   },
 };
-
-export default CookieManager;

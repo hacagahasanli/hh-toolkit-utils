@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-function useEventListener<K extends keyof WindowEventMap>(
+export function useEventListener<K extends keyof WindowEventMap>(
   event: K,
   handler: (event: WindowEventMap[K]) => void,
   element: Window | Document = window,
@@ -10,5 +10,3 @@ function useEventListener<K extends keyof WindowEventMap>(
     return () => element.removeEventListener(event, handler as EventListener);
   }, [event, handler, element]);
 }
-
-export default useEventListener;

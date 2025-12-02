@@ -4,7 +4,7 @@ interface UsePortalOptions {
   id?: string;
 }
 
-const usePortal = ({ id }: UsePortalOptions = {}) => {
+export const usePortal = ({ id }: UsePortalOptions = {}) => {
   const rootRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -31,5 +31,3 @@ const usePortal = ({ id }: UsePortalOptions = {}) => {
 
   return rootRef;
 };
-
-export default usePortal;

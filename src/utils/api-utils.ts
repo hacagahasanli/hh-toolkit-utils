@@ -1,6 +1,6 @@
-import CookieManager from "../lib/cookie";
+import { CookieManager } from '../lib/cookie';
 
-import { isNulOrUndefined } from "./common-utils";
+import { isNulOrUndefined } from './common-utils';
 
 /**
  * Configuration for a shared feature endpoint.
@@ -27,13 +27,13 @@ type SharedFeatures = Record<string, SharedFeatureConfig>;
 export function getEndpoint(
   role: string,
   feature: keyof SharedFeatures,
-  sharedFeatures: SharedFeatures
+  sharedFeatures: SharedFeatures,
 ): string | null {
   const featureConfig = sharedFeatures?.[feature];
 
   if (!featureConfig) return null;
 
-  if (typeof featureConfig.endpoint === "object") {
+  if (typeof featureConfig.endpoint === 'object') {
     return featureConfig.endpoint?.[role] || null;
   }
 
@@ -53,17 +53,17 @@ export const generateQuery = (query: Record<string, any>): string => {
   const searchParams = new URLSearchParams();
 
   if (isNulOrUndefined(query)) {
-    return "";
+    return '';
   }
 
   Object.entries(query).forEach(([key, value]) => {
     if (Array.isArray(value)) {
       value.forEach((v) => {
-        if (v !== undefined && v !== null && v !== "") {
+        if (v !== undefined && v !== null && v !== '') {
           searchParams.append(key, String(v));
         }
       });
-    } else if (value !== undefined && value !== null && value !== "") {
+    } else if (value !== undefined && value !== null && value !== '') {
       searchParams.append(key, String(value));
     }
   });

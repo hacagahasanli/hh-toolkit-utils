@@ -1,4 +1,4 @@
-const useDownloadFile = () => {
+export const useDownloadFile = () => {
   const downloadImage = async (src: string, filename: string) => {
     try {
       const response = await fetch(src);
@@ -18,5 +18,3 @@ const useDownloadFile = () => {
 
   return { downloadImage };
 };
-
-export default useDownloadFile;

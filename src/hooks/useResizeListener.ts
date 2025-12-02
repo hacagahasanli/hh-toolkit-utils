@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import EventTypes from '../constants/EventTypes';
 
-const useResizeListener = (callback: () => void, active: boolean) => {
+export const useResizeListener = (callback: () => void, active: boolean) => {
   useEffect(() => {
     if (active) {
       callback();
@@ -14,5 +14,3 @@ const useResizeListener = (callback: () => void, active: boolean) => {
     };
   }, [active, callback]);
 };
-
-export default useResizeListener;

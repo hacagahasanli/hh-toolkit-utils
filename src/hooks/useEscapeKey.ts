@@ -1,7 +1,8 @@
 import { useCallback } from 'react';
 
 import EventTypes from '../constants/EventTypes';
-import useEventListener from './useEventListener';
+
+import { useEventListener } from './useEventListener';
 
 interface UseEscapeKeyProps {
   enabled?: boolean;
@@ -9,7 +10,11 @@ interface UseEscapeKeyProps {
   preventDefault?: boolean;
 }
 
-const useEscapeKey = ({ onEscape, enabled = true, preventDefault = false }: UseEscapeKeyProps) => {
+export const useEscapeKey = ({
+  onEscape,
+  enabled = true,
+  preventDefault = false,
+}: UseEscapeKeyProps) => {
   const handler = useCallback(
     (event: KeyboardEvent) => {
       if (!enabled) return;
@@ -27,5 +32,3 @@ const useEscapeKey = ({ onEscape, enabled = true, preventDefault = false }: UseE
 
   useEventListener('keydown', handler, document);
 };
-
-export default useEscapeKey;

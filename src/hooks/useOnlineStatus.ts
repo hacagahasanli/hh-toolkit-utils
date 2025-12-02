@@ -1,14 +1,16 @@
 import { useSyncExternalStore } from "react";
 
-export default function useOnlineStatus() {
+export function useOnlineStatus() {
   const isOnline = useSyncExternalStore(
     subscribe,
     getSnapshot,
     getServerSnapshot
   );
-  
+
   return isOnline;
 }
+
+export default useOnlineStatus;
 
 function getSnapshot() {
   return navigator.onLine;

@@ -13,7 +13,7 @@ interface FormDataOptions {
   skipEmptyStrings?: boolean;
 }
 
-class FormDataBuilder {
+export class FormDataBuilder {
   private formData: FormData;
   private options: FormDataOptions;
 
@@ -130,5 +130,3 @@ class FormDataBuilder {
 export function createFormData(options?: FormDataOptions): FormDataBuilder {
   return new FormDataBuilder(options);
 }
-
-export default FormDataBuilder;

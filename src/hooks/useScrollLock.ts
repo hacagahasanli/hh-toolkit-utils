@@ -4,7 +4,7 @@ interface UseBodyScrollOptions {
   isLocked: boolean;
 }
 
-const useScrollLock = ({ isLocked }: UseBodyScrollOptions) => {
+export const useScrollLock = ({ isLocked }: UseBodyScrollOptions) => {
   useEffect(() => {
     if (isLocked) {
       document.body.style.overflow = 'hidden';
@@ -17,5 +17,3 @@ const useScrollLock = ({ isLocked }: UseBodyScrollOptions) => {
     };
   }, [isLocked]);
 };
-
-export default useScrollLock;

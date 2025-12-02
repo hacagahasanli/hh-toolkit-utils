@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
-const useAppLocation = () => {
+export const useAppLocation = () => {
   const location = useLocation();
 
   const { pathname, hash, search } = location ?? {};
@@ -20,5 +20,3 @@ const useAppLocation = () => {
     startsWith,
   };
 };
-
-export default useAppLocation;

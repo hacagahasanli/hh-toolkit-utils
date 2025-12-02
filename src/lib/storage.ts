@@ -1,4 +1,4 @@
-const createStorage = (storage: Storage) => ({
+export const createStorage = (storage: Storage) => ({
   /** Save any value (auto JSON.stringified) */
   set: <T>(key: string, value: T): void => {
     try {

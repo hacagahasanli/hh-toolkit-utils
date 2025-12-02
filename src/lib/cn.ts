@@ -25,7 +25,7 @@ export type ClassValue =
  * classnames('btn', { active: isActive, disabled: isDisabled }, ['extra', ['nested']])
  *    returns 'btn active extra nested' if isActive is true and isDisabled is false
  */
-function cn(...args: ClassValue[]): string {
+export function cn(...args: ClassValue[]): string {
   return (
     args
       .flatMap((arg) => {
@@ -50,5 +50,3 @@ function cn(...args: ClassValue[]): string {
       .join(" ")
   );
 }
-
-export default cn;

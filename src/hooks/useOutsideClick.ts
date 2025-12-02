@@ -1,7 +1,8 @@
 import { type RefObject, useCallback } from 'react';
-import useEventListener from './useEventListener';
 
-function useOutsideClick(ref: RefObject<HTMLElement | null>, onClickOutside?: () => void) {
+import { useEventListener } from './useEventListener';
+
+export function useOutsideClick(ref: RefObject<HTMLElement | null>, onClickOutside?: () => void) {
   const handler = useCallback(
     (event: MouseEvent) => {
       if (!ref.current) return;
@@ -14,5 +15,3 @@ function useOutsideClick(ref: RefObject<HTMLElement | null>, onClickOutside?: ()
 
   useEventListener('mousedown', handler, document);
 }
-
-export default useOutsideClick;

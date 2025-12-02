@@ -43,7 +43,7 @@ function retryImport<T>(
  * @param options - Optional retry settings (retries, delayMs)
  * @returns Map of component names to lazy React components
  */
-const lazyLoad = (
+export const lazyLoad = (
   componentMap: LazyComponentMap,
   options: LazyLoadOptions = {}
 ): LazyComponents => {
@@ -57,5 +57,3 @@ const lazyLoad = (
 
   return lazyComponents;
 };
-
-export default lazyLoad;
