@@ -1,4 +1,4 @@
-enum DateFormats {
+export enum DateFormats {
   MMMM_DD_YYYY = "MMMM DD, YYYY",
   DD_MM_YYYY_WITH_DOT = "DD.MM.YYYY",
   DD_MM_YYYY_WITH_SLASH = "DD/MM/YYYY",
@@ -7,5 +7,3 @@ enum DateFormats {
   DD_MM_YYYY_HH_mm = "DD/MM/YYYY HH:mm",
   DD_MMM_YYYY_WITH_SPACE = "DD MMM YYYY",
 }
-
-export default DateFormats;
