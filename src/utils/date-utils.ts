@@ -1,11 +1,11 @@
-import dayjs, { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from 'dayjs';
 
-import isBetween from "dayjs/plugin/isBetween";
-import relativeTime from "dayjs/plugin/relativeTime";
-import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
-import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+import isBetween from 'dayjs/plugin/isBetween';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
-import DateFormats from "../constants/DateFormats";
+import { DateFormats } from '../constants/DateFormats';
 
 // Extend dayjs with plugins
 dayjs.extend(relativeTime);
@@ -38,7 +38,7 @@ export const toDayjs = (date: DateInput): Dayjs | undefined => {
  */
 export const formatDate = (
   date: DateInput,
-  format: DateFormats | string = DateFormats.DD_MMM_YYYY_WITH_SPACE
+  format: DateFormats | string = DateFormats.DD_MMM_YYYY_WITH_SPACE,
 ): string | undefined => {
   const parsed = toDayjs(date);
   return parsed?.format(format);
@@ -51,10 +51,7 @@ export const formatDate = (
  * @param baseDate - Base date to compare against (default: now)
  * @returns relative time string or undefined
  */
-export const formatRelativeTime = (
-  date: DateInput,
-  baseDate?: DateInput
-): string | undefined => {
+export const formatRelativeTime = (date: DateInput, baseDate?: DateInput): string | undefined => {
   const parsed = toDayjs(date);
   if (!parsed) return undefined;
 
@@ -104,7 +101,7 @@ export const isFuture = (date: DateInput): boolean => {
  */
 export const isToday = (date: DateInput): boolean => {
   const parsed = toDayjs(date);
-  return parsed ? parsed.isSame(dayjs(), "day") : false;
+  return parsed ? parsed.isSame(dayjs(), 'day') : false;
 };
 
 /**
@@ -115,9 +112,7 @@ export const isToday = (date: DateInput): boolean => {
  */
 export const isYesterday = (date: DateInput): boolean => {
   const parsed = toDayjs(date);
-  return parsed
-    ? parsed.isSame(dayjs().subtract(1, "day"), "day")
-    : false;
+  return parsed ? parsed.isSame(dayjs().subtract(1, 'day'), 'day') : false;
 };
 
 /**
@@ -128,7 +123,7 @@ export const isYesterday = (date: DateInput): boolean => {
  */
 export const isTomorrow = (date: DateInput): boolean => {
   const parsed = toDayjs(date);
-  return parsed ? parsed.isSame(dayjs().add(1, "day"), "day") : false;
+  return parsed ? parsed.isSame(dayjs().add(1, 'day'), 'day') : false;
 };
 
 /**
@@ -141,7 +136,7 @@ export const isTomorrow = (date: DateInput): boolean => {
 export const isSameDay = (date1: DateInput, date2: DateInput): boolean => {
   const parsed1 = toDayjs(date1);
   const parsed2 = toDayjs(date2);
-  return parsed1 && parsed2 ? parsed1.isSame(parsed2, "day") : false;
+  return parsed1 && parsed2 ? parsed1.isSame(parsed2, 'day') : false;
 };
 
 /**
@@ -155,7 +150,7 @@ export const isSameDay = (date1: DateInput, date2: DateInput): boolean => {
 export const isBetweenDates = (
   date: DateInput,
   startDate: DateInput,
-  endDate: DateInput
+  endDate: DateInput,
 ): boolean => {
   const parsed = toDayjs(date);
   const start = toDayjs(startDate);
@@ -163,7 +158,7 @@ export const isBetweenDates = (
 
   if (!parsed || !start || !end) return false;
 
-  return parsed.isBetween(start, end, null, "[]");
+  return parsed.isBetween(start, end, null, '[]');
 };
 
 /**
@@ -177,7 +172,7 @@ export const isBetweenDates = (
 export const getDateDifference = (
   date1: DateInput,
   date2: DateInput,
-  unit: dayjs.UnitType = "day"
+  unit: dayjs.UnitType = 'day',
 ): number | undefined => {
   const parsed1 = toDayjs(date1);
   const parsed2 = toDayjs(date2);
@@ -198,7 +193,7 @@ export const getDateDifference = (
 export const addToDate = (
   date: DateInput,
   amount: number,
-  unit: dayjs.ManipulateType = "day"
+  unit: dayjs.ManipulateType = 'day',
 ): Dayjs | undefined => {
   const parsed = toDayjs(date);
   return parsed?.add(amount, unit);
@@ -215,7 +210,7 @@ export const addToDate = (
 export const subtractFromDate = (
   date: DateInput,
   amount: number,
-  unit: dayjs.ManipulateType = "day"
+  unit: dayjs.ManipulateType = 'day',
 ): Dayjs | undefined => {
   const parsed = toDayjs(date);
   return parsed?.subtract(amount, unit);
@@ -228,10 +223,7 @@ export const subtractFromDate = (
  * @param unit - Unit of time (default: day)
  * @returns start of unit or undefined
  */
-export const startOf = (
-  date: DateInput,
-  unit: dayjs.OpUnitType = "day"
-): Dayjs | undefined => {
+export const startOf = (date: DateInput, unit: dayjs.OpUnitType = 'day'): Dayjs | undefined => {
   const parsed = toDayjs(date);
   return parsed?.startOf(unit);
 };
@@ -243,10 +235,7 @@ export const startOf = (
  * @param unit - Unit of time (default: day)
  * @returns end of unit or undefined
  */
-export const endOf = (
-  date: DateInput,
-  unit: dayjs.OpUnitType = "day"
-): Dayjs | undefined => {
+export const endOf = (date: DateInput, unit: dayjs.OpUnitType = 'day'): Dayjs | undefined => {
   const parsed = toDayjs(date);
   return parsed?.endOf(unit);
 };
@@ -264,7 +253,7 @@ export const formatDateRange = (
   startDate: DateInput,
   endDate: DateInput,
   format: DateFormats | string = DateFormats.DD_MMM_YYYY_WITH_SPACE,
-  separator: string = " - "
+  separator: string = ' - ',
 ): string | undefined => {
   const start = formatDate(startDate, format);
   const end = formatDate(endDate, format);
@@ -284,7 +273,7 @@ export const getAge = (birthdate: DateInput): number | undefined => {
   const parsed = toDayjs(birthdate);
   if (!parsed) return undefined;
 
-  return dayjs().diff(parsed, "year");
+  return dayjs().diff(parsed, 'year');
 };
 
 /**
@@ -294,10 +283,7 @@ export const getAge = (birthdate: DateInput): number | undefined => {
  * @param format - Expected format
  * @returns dayjs object or undefined
  */
-export const parseDate = (
-  dateString: string,
-  format: string
-): Dayjs | undefined => {
+export const parseDate = (dateString: string, format: string): Dayjs | undefined => {
   const parsed = dayjs(dateString, format);
   return parsed.isValid() ? parsed : undefined;
 };
@@ -338,10 +324,7 @@ export const now = (): Dayjs => dayjs();
  * @param date2 - Second date
  * @returns -1 if date1 < date2, 0 if equal, 1 if date1 > date2, undefined if invalid
  */
-export const compareDates = (
-  date1: DateInput,
-  date2: DateInput
-): -1 | 0 | 1 | undefined => {
+export const compareDates = (date1: DateInput, date2: DateInput): -1 | 0 | 1 | undefined => {
   const parsed1 = toDayjs(date1);
   const parsed2 = toDayjs(date2);
 
