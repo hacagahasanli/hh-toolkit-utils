@@ -2,29 +2,9 @@
 
 A lightweight collection of React hooks, utility functions, and helpers that'll make your development workflow smoother. This package brings together commonly needed utilities so you don't have to reinvent the wheel every time you start a new project.
 
-## Contributing
+### Contributing
 
 Feel free to open issues or submit pull requests if you find bugs or have suggestions for improvements!
-
-## Installation
-
-```bash
-npm install everyday-helper
-# or
-yarn add everyday-helper
-```
-
-## Peer Dependencies
-
-Make sure you have these installed in your project:
-
-```json
-{
-  "react": ">=18",
-  "react-dom": ">=18",
-  "react-router-dom": ">=6.0.0"
-}
-```
 
 ## What's Inside?
 
@@ -38,6 +18,23 @@ This package is organized into four main sections:
 ---
 
 ## React Hooks
+
+### usePortal
+
+Create a portal container dynamically for modals, tooltips, etc.
+
+```tsx
+import { usePortal } from 'everyday-helper/hooks';
+import { createPortal } from 'react-dom';
+
+function Modal({ children }) {
+  const portalRef = usePortal({ id: 'modal-root' });
+
+  if (!portalRef.current) return null;
+
+  return createPortal(children, portalRef.current);
+}
+```
 
 ### useAppLocation
 
@@ -212,23 +209,6 @@ function Dropdown() {
 ```
 
 ---
-
-### usePortal
-
-Create a portal container dynamically for modals, tooltips, etc.
-
-```tsx
-import { usePortal } from 'everyday-helper/hooks';
-import { createPortal } from 'react-dom';
-
-function Modal({ children }) {
-  const portalRef = usePortal({ id: 'modal-root' });
-
-  if (!portalRef.current) return null;
-
-  return createPortal(children, portalRef.current);
-}
-```
 
 **Options:**
 
