@@ -17,6 +17,141 @@ This package is organized into four main sections:
 
 ---
 
+## Library Helpers
+
+### FormDataBuilder
+
+Build FormData objects with ease.
+
+```tsx
+import { createFormData } from 'everyday-helper/lib';
+
+const formData = createFormData()
+  .append('name', 'John')
+  .append('email', 'john@example.com')
+  .appendFile('avatar', avatarFile)
+  .appendJSON('metadata', { age: 30 })
+  .appendArray('tags', [{ id: 1, name: 'tech' }])
+  .build();
+
+// With options
+const formData2 = createFormData({
+  skipNull: true,
+  skipUndefined: true,
+  skipEmptyStrings: true,
+})
+  .appendFields({ name: 'John', age: 30 })
+  .build();
+```
+
+---
+
+### Storage Lib
+
+Type-safe localStorage and sessionStorage wrappers.
+
+```tsx
+import { local, session } from 'everyday-helper/lib';
+
+// Local storage
+local.set('user', { id: 1, name: 'John' });
+const user = local.get<User>('user');
+const userOrDefault = local.getOr('user', { id: 0, name: 'Guest' });
+local.remove('user');
+local.clear();
+
+// Session storage
+session.set('temp_data', { foo: 'bar' });
+const data = session.get('temp_data');
+session.has('temp_data'); // true
+const allKeys = session.keys();
+```
+
+---
+
+### cn - Class Name Utility
+
+Conditionally combine class names.
+
+```tsx
+import cn from 'everyday-helper/lib';
+
+function Button({ isActive, isPrimary, className }) {
+  return (
+    <button
+      className={cn(
+        'btn',
+        {
+          active: isActive,
+          'btn-primary': isPrimary,
+        },
+        className,
+      )}
+    >
+      Click me
+    </button>
+  );
+}
+```
+
+---
+
+### CookieManager
+
+Simple cookie management.
+
+```tsx
+import { CookieManager } from 'everyday-helper/lib';
+
+// Set cookie
+CookieManager.set('user_token', 'abc123', {
+  domain: '.example.com',
+  path: '/',
+  expires: 7, // 7 days
+  secure: true,
+  sameSite: 'Strict',
+});
+
+// Get cookie
+const token = CookieManager.get('user_token');
+
+// Remove cookie
+CookieManager.remove('user_token');
+```
+
+---
+
+### lazyLoad
+
+Lazy load React components with retry logic.
+
+```tsx
+import lazyLoad from 'everyday-helper/lib';
+
+const components = lazyLoad(
+  {
+    HomePage: () => import('./pages/Home'),
+    AboutPage: () => import('./pages/About'),
+    Dashboard: () => import('./pages/Dashboard'),
+  },
+  {
+    retries: 2,
+    delayMs: 250,
+  },
+);
+
+function App() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Routes>
+        <Route path="/" element={<components.HomePage />} />
+        <Route path="/about" element={<components.AboutPage />} />
+      </Routes>
+    </Suspense>
+  );
+}
+```
+
 ## React Hooks
 
 
@@ -839,143 +974,6 @@ import 'hh-toolkit/animations.css';
 - `slideInRight(order?, className?, style?)`
 - `scaleIn(order?, className?, style?)`
 - `bounceIn(order?, className?, style?)`
-
----
-
-## Library Helpers
-
-### cn - Class Name Utility
-
-Conditionally combine class names.
-
-```tsx
-import cn from 'everyday-helper/lib';
-
-function Button({ isActive, isPrimary, className }) {
-  return (
-    <button
-      className={cn(
-        'btn',
-        {
-          active: isActive,
-          'btn-primary': isPrimary,
-        },
-        className,
-      )}
-    >
-      Click me
-    </button>
-  );
-}
-```
-
----
-
-### CookieManager
-
-Simple cookie management.
-
-```tsx
-import { CookieManager } from 'everyday-helper/lib';
-
-// Set cookie
-CookieManager.set('user_token', 'abc123', {
-  domain: '.example.com',
-  path: '/',
-  expires: 7, // 7 days
-  secure: true,
-  sameSite: 'Strict',
-});
-
-// Get cookie
-const token = CookieManager.get('user_token');
-
-// Remove cookie
-CookieManager.remove('user_token');
-```
-
----
-
-### FormDataBuilder
-
-Build FormData objects with ease.
-
-```tsx
-import { createFormData } from 'everyday-helper/lib';
-
-const formData = createFormData()
-  .append('name', 'John')
-  .append('email', 'john@example.com')
-  .appendFile('avatar', avatarFile)
-  .appendJSON('metadata', { age: 30 })
-  .appendArray('tags', [{ id: 1, name: 'tech' }])
-  .build();
-
-// With options
-const formData2 = createFormData({
-  skipNull: true,
-  skipUndefined: true,
-  skipEmptyStrings: true,
-})
-  .appendFields({ name: 'John', age: 30 })
-  .build();
-```
-
----
-
-### Storage Helpers
-
-Type-safe localStorage and sessionStorage wrappers.
-
-```tsx
-import { local, session } from 'everyday-helper/lib';
-
-// Local storage
-local.set('user', { id: 1, name: 'John' });
-const user = local.get<User>('user');
-const userOrDefault = local.getOr('user', { id: 0, name: 'Guest' });
-local.remove('user');
-local.clear();
-
-// Session storage
-session.set('temp_data', { foo: 'bar' });
-const data = session.get('temp_data');
-session.has('temp_data'); // true
-const allKeys = session.keys();
-```
-
----
-
-### lazyLoad
-
-Lazy load React components with retry logic.
-
-```tsx
-import lazyLoad from 'everyday-helper/lib';
-
-const components = lazyLoad(
-  {
-    HomePage: () => import('./pages/Home'),
-    AboutPage: () => import('./pages/About'),
-    Dashboard: () => import('./pages/Dashboard'),
-  },
-  {
-    retries: 2,
-    delayMs: 250,
-  },
-);
-
-function App() {
-  return (
-    <Suspense fallback={<Loading />}>
-      <Routes>
-        <Route path="/" element={<components.HomePage />} />
-        <Route path="/about" element={<components.AboutPage />} />
-      </Routes>
-    </Suspense>
-  );
-}
-```
 
 ---
 
