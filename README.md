@@ -2,112 +2,9 @@
 
 A lightweight collection of React hooks, utility functions, and helpers that'll make your development workflow smoother. This package brings together commonly needed utilities so you don't have to reinvent the wheel every time you start a new project.
 
-## Contributing
+### Contributing
 
 Feel free to open issues or submit pull requests if you find bugs or have suggestions for improvements!
-
-## Installation
-
-```bash
-npm install everyday-helper
-# or
-yarn add everyday-helper
-```
-
-## 📥 Contributing Guide
-
-This package is open for contributions from teammates and friends.  
-If you want to add new hooks, utility functions, or improvements, please follow the rules below so we maintain a clean and stable toolkit.
-
-### 🔧 What You Can Contribute
-
-You may contribute:
-
-- Reusable React hooks
-- Pure utility/helper functions
-- Shared constants or small modules
-- Fixes or improvements to existing features
-- Documentation updates
-
-#### Important Requirements
-
-- Each contribution **must work independently** (no external dependencies).
-- Must be **general-purpose and reusable**.
-- Must include **proper TypeScript types**.
-- Must follow the existing folder structure:
-  - `hooks/`
-  - `utils/`
-  - `constants/`
-  - `lib/`
-
-### 🛠 How to Contribute
-
-1. Create a new branch from `main`.
-2. Add your hook/function/module following the existing structure.
-3. Update `CHANGELOG.md` using the correct category.
-4. Open a Pull Request.
-5. PRs must use **Squash and Merge**.
-6. After approval, your PR will be merged and automatically released through CI/CD.
-
-### 📝 Commit Message Rules
-
-These rules are **required** for the automatic release pipeline to work.
-
-When squashing your PR, the commit message **must** follow Conventional Commits format:
-
-### New Feature / New Hook
-```sh
-feat: added useLocalStorage hook
-```
-→ triggers a minor version bump
-
-### Bug Fix
-```sh
-fix: corrected delay behavior in useDebounce
-```
-→ triggers a patch version bump
-
-### Breaking Change
-```sh
-feat!: updated API for useToggle
-```
-→ triggers a major version bump
-
-## Updating the CHANGELOG
-Each PR must update CHANGELOG.md:
-
-Use the correct category (Added, Changed, Fixed, etc.)
-Follow the formatting already used in the file
-Keep descriptions short and clear
-
-## [Unreleased]
-
-### Added
-```sh
-- `useLocalStorage` hook for persisting state in localStorage (#42)
-```
-
-### Fixed
-```sh
-- Fixed race condition in `useDebounce` when value changes rapidly (#45)
-```
-
-Final Note
-Your involvement is highly appreciated!
-The more people contribute, the more powerful and useful this shared toolkit becomes.
-Let’s build something reliable and reusable for all of us! 🚀
-
-## Peer Dependencies
-
-Make sure you have these installed in your project:
-
-```json
-{
-  "react": ">=18",
-  "react-dom": ">=18",
-  "react-router-dom": ">=6.0.0"
-}
-```
 
 ## What's Inside?
 
@@ -120,7 +17,160 @@ This package is organized into four main sections:
 
 ---
 
+## Library Helpers
+
+### FormDataBuilder
+
+Build FormData objects with ease.
+
+```tsx
+import { createFormData } from 'everyday-helper/lib';
+
+const formData = createFormData()
+  .append('name', 'John')
+  .append('email', 'john@example.com')
+  .appendFile('avatar', avatarFile)
+  .appendJSON('metadata', { age: 30 })
+  .appendArray('tags', [{ id: 1, name: 'tech' }])
+  .build();
+
+// With options
+const formData2 = createFormData({
+  skipNull: true,
+  skipUndefined: true,
+  skipEmptyStrings: true,
+})
+  .appendFields({ name: 'John', age: 30 })
+  .build();
+```
+
+---
+
+### Storage Lib
+
+Type-safe localStorage and sessionStorage wrappers.
+
+```tsx
+import { local, session } from 'everyday-helper/lib';
+
+// Local storage
+local.set('user', { id: 1, name: 'John' });
+const user = local.get<User>('user');
+const userOrDefault = local.getOr('user', { id: 0, name: 'Guest' });
+local.remove('user');
+local.clear();
+
+// Session storage
+session.set('temp_data', { foo: 'bar' });
+const data = session.get('temp_data');
+session.has('temp_data'); // true
+const allKeys = session.keys();
+```
+
+---
+
+### cn - Class Name Utility
+
+Conditionally combine class names.
+
+```tsx
+import cn from 'everyday-helper/lib';
+
+function Button({ isActive, isPrimary, className }) {
+  return (
+    <button
+      className={cn(
+        'btn',
+        {
+          active: isActive,
+          'btn-primary': isPrimary,
+        },
+        className,
+      )}
+    >
+      Click me
+    </button>
+  );
+}
+```
+
+---
+
+### CookieManager
+
+Simple cookie management.
+
+```tsx
+import { CookieManager } from 'everyday-helper/lib';
+
+// Set cookie
+CookieManager.set('user_token', 'abc123', {
+  domain: '.example.com',
+  path: '/',
+  expires: 7, // 7 days
+  secure: true,
+  sameSite: 'Strict',
+});
+
+// Get cookie
+const token = CookieManager.get('user_token');
+
+// Remove cookie
+CookieManager.remove('user_token');
+```
+
+---
+
+### lazyLoad
+
+Lazy load React components with retry logic.
+
+```tsx
+import lazyLoad from 'everyday-helper/lib';
+
+const components = lazyLoad(
+  {
+    HomePage: () => import('./pages/Home'),
+    AboutPage: () => import('./pages/About'),
+    Dashboard: () => import('./pages/Dashboard'),
+  },
+  {
+    retries: 2,
+    delayMs: 250,
+  },
+);
+
+function App() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Routes>
+        <Route path="/" element={<components.HomePage />} />
+        <Route path="/about" element={<components.AboutPage />} />
+      </Routes>
+    </Suspense>
+  );
+}
+```
+
 ## React Hooks
+
+
+### usePortal
+
+Create a portal container dynamically for modals, tooltips, etc.
+
+```tsx
+import { usePortal } from 'everyday-helper/hooks';
+import { createPortal } from 'react-dom';
+
+function Modal({ children }) {
+  const portalRef = usePortal({ id: 'modal-root' });
+
+  if (!portalRef.current) return null;
+
+  return createPortal(children, portalRef.current);
+}
+```
 
 ### useAppLocation
 
@@ -295,23 +345,6 @@ function Dropdown() {
 ```
 
 ---
-
-### usePortal
-
-Create a portal container dynamically for modals, tooltips, etc.
-
-```tsx
-import { usePortal } from 'everyday-helper/hooks';
-import { createPortal } from 'react-dom';
-
-function Modal({ children }) {
-  const portalRef = usePortal({ id: 'modal-root' });
-
-  if (!portalRef.current) return null;
-
-  return createPortal(children, portalRef.current);
-}
-```
 
 **Options:**
 
@@ -941,143 +974,6 @@ import 'hh-toolkit/animations.css';
 - `slideInRight(order?, className?, style?)`
 - `scaleIn(order?, className?, style?)`
 - `bounceIn(order?, className?, style?)`
-
----
-
-## Library Helpers
-
-### cn - Class Name Utility
-
-Conditionally combine class names.
-
-```tsx
-import cn from 'everyday-helper/lib';
-
-function Button({ isActive, isPrimary, className }) {
-  return (
-    <button
-      className={cn(
-        'btn',
-        {
-          active: isActive,
-          'btn-primary': isPrimary,
-        },
-        className,
-      )}
-    >
-      Click me
-    </button>
-  );
-}
-```
-
----
-
-### CookieManager
-
-Simple cookie management.
-
-```tsx
-import { CookieManager } from 'everyday-helper/lib';
-
-// Set cookie
-CookieManager.set('user_token', 'abc123', {
-  domain: '.example.com',
-  path: '/',
-  expires: 7, // 7 days
-  secure: true,
-  sameSite: 'Strict',
-});
-
-// Get cookie
-const token = CookieManager.get('user_token');
-
-// Remove cookie
-CookieManager.remove('user_token');
-```
-
----
-
-### FormDataBuilder
-
-Build FormData objects with ease.
-
-```tsx
-import { createFormData } from 'everyday-helper/lib';
-
-const formData = createFormData()
-  .append('name', 'John')
-  .append('email', 'john@example.com')
-  .appendFile('avatar', avatarFile)
-  .appendJSON('metadata', { age: 30 })
-  .appendArray('tags', [{ id: 1, name: 'tech' }])
-  .build();
-
-// With options
-const formData2 = createFormData({
-  skipNull: true,
-  skipUndefined: true,
-  skipEmptyStrings: true,
-})
-  .appendFields({ name: 'John', age: 30 })
-  .build();
-```
-
----
-
-### Storage Helpers
-
-Type-safe localStorage and sessionStorage wrappers.
-
-```tsx
-import { local, session } from 'everyday-helper/lib';
-
-// Local storage
-local.set('user', { id: 1, name: 'John' });
-const user = local.get<User>('user');
-const userOrDefault = local.getOr('user', { id: 0, name: 'Guest' });
-local.remove('user');
-local.clear();
-
-// Session storage
-session.set('temp_data', { foo: 'bar' });
-const data = session.get('temp_data');
-session.has('temp_data'); // true
-const allKeys = session.keys();
-```
-
----
-
-### lazyLoad
-
-Lazy load React components with retry logic.
-
-```tsx
-import lazyLoad from 'everyday-helper/lib';
-
-const components = lazyLoad(
-  {
-    HomePage: () => import('./pages/Home'),
-    AboutPage: () => import('./pages/About'),
-    Dashboard: () => import('./pages/Dashboard'),
-  },
-  {
-    retries: 2,
-    delayMs: 250,
-  },
-);
-
-function App() {
-  return (
-    <Suspense fallback={<Loading />}>
-      <Routes>
-        <Route path="/" element={<components.HomePage />} />
-        <Route path="/about" element={<components.AboutPage />} />
-      </Routes>
-    </Suspense>
-  );
-}
-```
 
 ---
 
