@@ -26,7 +26,7 @@ export default defineConfig({
   splitting: false,
   keepNames: true,
   treeshake: true,
-  external: ['react', 'react-dom', 'react-router-dom', 'dayjs'],
+  external: ['react', 'react-dom', 'react-router-dom'],
   onSuccess: 'copyfiles -u 1 "src/styles/**/*.css" dist',
   ignoreWatch: ['**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', 'src/__tests__'],
   target: 'es2020',

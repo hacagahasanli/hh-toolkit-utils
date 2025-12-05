@@ -97,7 +97,6 @@
     "vitest": "^2.1.0"
   },
   "dependencies": {
-    "@types/react-router-dom": "^5.3.3",
-    "dayjs": "^1.11.19"
+    "@types/react-router-dom": "^5.3.3"
   }
 }

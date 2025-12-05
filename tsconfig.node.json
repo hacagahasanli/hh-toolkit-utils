@@ -15,7 +15,6 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "dayjs": ["./node_modules/dayjs"]
     },
 
     /* Linting */

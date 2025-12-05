@@ -694,7 +694,7 @@ const uppercased = mapValues(user, (val) => (typeof val === 'string' ? val.toUpp
 
 ### Date Utils
 
-Comprehensive date utilities powered by dayjs.
+Comprehensive date utilities powered by native JS.
 
 ```tsx
 import {
@@ -735,7 +735,6 @@ const age = getAge('1990-01-01'); // Age in years
 
 **Available functions:**
 
-- `toDayjs(date)` - Convert to dayjs object
 - `formatDate(date, format)` - Format date
 - `formatRelativeTime(date, baseDate?)` - Relative time string
 - `isValidDate(date)` - Validate date
